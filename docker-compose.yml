@@ -1,0 +1,47 @@
+services:
+  # ----------------------------------------------------------------------------
+  # VALKEY DATABASE SERVER (Thay the Redis truyen thong bang Valkey Open-Source)
+  # ----------------------------------------------------------------------------
+  valkey:
+    image: valkey/valkey:7.2-alpine
+    container_name: minimart-valkey
+    restart: unless-stopped
+    ports:
+      - "6379:6379"
+    volumes:
+      - ./docker/valkey/data:/data
+      - ./docker/valkey/valkey.conf:/usr/local/etc/valkey/valkey.conf
+    command: valkey-server /usr/local/etc/valkey/valkey.conf
+    healthcheck:
+      test: ["CMD", "valkey-cli", "ping"]
+      interval: 5s
+      timeout: 3s
+      retries: 5
+    networks:
+      - minimart-network
+
+  # ----------------------------------------------------------------------------
+  # VALKEY ADMIN WEB UI (Dashboard truc quan quan ly Stream, Hash, Key, Queue)
+  # Truy cap tai: http://localhost:8085
+  # Tai khoan mac dinh: admin / admin
+  # ----------------------------------------------------------------------------
+  valkey-admin:
+    image: joeferner/redis-commander:latest
+    container_name: minimart-valkey-admin
+    restart: unless-stopped
+    ports:
+      - "8085:8085"
+    environment:
+      - REDIS_HOSTS=Valkey-MiniMart:valkey:6379
+      - PORT=8085
+      - HTTP_USER=admin
+      - HTTP_PASSWORD=admin
+    depends_on:
+      valkey:
+        condition: service_healthy
+    networks:
+      - minimart-network
+
+networks:
+  minimart-network:
+    driver: bridge

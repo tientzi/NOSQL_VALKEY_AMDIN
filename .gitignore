@@ -1,0 +1,63 @@
+HELP.md
+target/
+!.mvn/wrapper/maven-wrapper.jar
+!**/src/main/**/target/
+!**/src/test/**/target/
+
+### STS ###
+.apt_generated
+.classpath
+.factorypath
+.project
+.settings
+.springBeans
+.sts4-cache
+bin/
+
+### IntelliJ IDEA ###
+.idea
+*.iws
+*.iml
+*.ipr
+
+### NetBeans ###
+/nbproject/private/
+/nbbuild/
+/dist/
+/nbdist/
+/.nb-gradle/
+build/
+!**/src/main/**/build/
+!**/src/test/**/build/
+
+### VS Code ###
+.vscode/
+
+### Node & Frontend ###
+node_modules/
+**/node_modules/
+node-portable/
+dist/
+**/dist/
+
+### Local Maven & Tooling ###
+.maven/
+.maven-local/
+.metals/
+.bloop/
+.github/modernize/
+
+### OS files ###
+Thumbs.db
+Desktop.ini
+.DS_Store
+
+### Custom/Project Specific ###
+*.log
+# *.sql (Cho phép push file sql lên git)
+.env
+file_bao_cao/*.mp4
+uploads/
+docker/valkey/data/*
+!docker/valkey/data/.gitkeep
+
